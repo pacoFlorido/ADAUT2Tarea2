@@ -18,7 +18,7 @@ public class MenuUtil {
     static RunnerHandleDB runnerHandleDB = new RunnerHandleDB();
 
     public static void showMenu(){
-        System.out.println("\n### BIENVENIDO A MARATONLIVE ###");
+        System.out.println(Colores.ANSI_BLUE + "\n### BIENVENIDO A MARATONLIVE ###");
         int ejecucionLogin = menuLogin();
 
         if (ejecucionLogin!=0){
@@ -33,7 +33,7 @@ public class MenuUtil {
         int intentos = 4;
 
         do {
-            System.out.print("Usuario: ");
+            System.out.print(Colores.ANSI_YELLOW + "Usuario: ");
             username = sc.nextLine();
             System.out.print("Contraseña: ");
             password = sc.nextLine();
@@ -54,7 +54,7 @@ public class MenuUtil {
         boolean registrado = false;
 
         do {
-            System.out.print("Usuario: ");
+            System.out.print(Colores.ANSI_YELLOW + "Usuario: ");
             username = sc.nextLine();
             System.out.print("Contraseña: ");
             password = sc.nextLine();
@@ -115,7 +115,7 @@ public class MenuUtil {
         String opcion;
         int id;
         do {
-            System.out.println("\n### MENU UTILIZAR TABLA " + tabla+ " ###");
+            System.out.println(Colores.ANSI_GREEN + "\n### MENU UTILIZAR TABLA " + tabla+ " ###");
             System.out.println("1-Añadir "+ tabla);
             System.out.println("2-Modificar "+ tabla);
             System.out.println("3-Eliminar "+ tabla);
@@ -168,7 +168,9 @@ public class MenuUtil {
                     System.out.print("Introduce el nombre del equipo del cual quieres ver los corredores: ");
                     String tname = sc.nextLine();
                     if (teamHandleDB.exists(tname)){
+                        System.out.println("#################################################");
                         teamHandleDB.getRunnersEquipo(tname);
+                        System.out.println("#################################################");
                     } else {
                         System.out.println("Equipo no encontrado, volviendo al menu.");
                     }
@@ -179,7 +181,7 @@ public class MenuUtil {
                     System.out.println("Opción incorrecta, vuelve a intentarlo.");
                     break;
             }
-        } while (!opcion.equals("5"));
+        } while (!opcion.equals("6"));
     }
     public static void menuCorredor() throws SQLException {
         String tabla = "CORREDOR";
@@ -188,7 +190,7 @@ public class MenuUtil {
         String name, tName;
         int finalPosition;
         do {
-            System.out.println("\n### MENU UTILIZAR TABLA " + tabla + " ###");
+            System.out.println(Colores.ANSI_RED + "\n### MENU UTILIZAR TABLA " + tabla + " ###");
             System.out.println("1-Añadir "+ tabla);
             System.out.println("2-Modificar "+ tabla);
             System.out.println("3-Eliminar "+ tabla);
@@ -253,7 +255,9 @@ public class MenuUtil {
                     }
                     break;
                 case "4":
+                    System.out.println("#############################");
                     runnerHandleDB.getRunners().forEach(System.out::println);
+                    System.out.println("#############################");
                     break;
                 case "5":
                     break;
@@ -266,7 +270,7 @@ public class MenuUtil {
     public static void menuSeleccionTabla(){
         String opcion;
         do {
-            System.out.println("\n### SELECCIONA LA TABLA A UTILIZAR ###");
+            System.out.println(Colores.ANSI_CYAN + "\n### SELECCIONA LA TABLA A UTILIZAR ###");
             System.out.println("1-Tabla Equipos");
             System.out.println("2-Tabla Corredores");
             System.out.println("3-SALIR PROGRAMA");

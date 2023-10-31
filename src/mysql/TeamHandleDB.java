@@ -1,5 +1,6 @@
 package mysql;
 
+import model.Runner;
 import model.Team;
 import util.DatabaseConnection;
 
@@ -111,19 +112,18 @@ public class TeamHandleDB {
         return null;
     }
     public void getRunnersEquipo(String tname){
-        String sql = "SELECT r.dorsal, r.r_name, r.final_position FROM runner r JOIN team t ON (r.idTeam=t.id) WHERE r.idTeam = ?";
+        String sql = "SELECT r.dorsal, r.r_name, r.final_position FROM runner r JOIN team t ON (r.idTeam=t.id) WHERE t.t_name = ?";
 
         try(PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1,tname);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                System.out.println(
-                        "\n======================"
-                        + "\nDorsal: " + rs.getInt(1)
-                        + "\nNombre: " + rs.getString(2)
-                        + "\nPosción final: " + rs.getInt(3)
-                        +"\n======================");
+                Runner r = new Runner();
+                        r.setDorsal(rs.getInt(1));
+                        r.setrName(rs.getString(2));
+                        r.setFinalPosition(rs.getInt(3));
+                System.out.println(r);
             }
         } catch (SQLException e) {
             e.printStackTrace();
