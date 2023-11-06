@@ -52,6 +52,6 @@ public class Runner {
                 "dorsal=" + dorsal +
                 ", rName='" + rName + '\'' +
                 ", finalPosition=" + finalPosition +
-                '}';
+                ", idTeam=" + this.idTeam + '}';
     }
 }

@@ -3,6 +3,7 @@ package util;
 import model.Login;
 import model.Runner;
 import model.Team;
+import mysql.GeneralHandleDB;
 import mysql.LoginHandleDB;
 import mysql.RunnerHandleDB;
 import mysql.TeamHandleDB;
@@ -16,6 +17,7 @@ public class MenuUtil {
     static LoginHandleDB loginHandleDB = new LoginHandleDB();
     static TeamHandleDB teamHandleDB = new TeamHandleDB();
     static RunnerHandleDB runnerHandleDB = new RunnerHandleDB();
+    static GeneralHandleDB generalHandleDB = new GeneralHandleDB();
 
     public static void showMenu(){
         System.out.println(Colores.ANSI_BLUE + "\n### BIENVENIDO A MARATONLIVE ###");
@@ -26,6 +28,60 @@ public class MenuUtil {
         }
     }
 
+    public static void menuSeleccionTabla(){
+        String opcion;
+        do {
+            System.out.println(Colores.ANSI_CYAN + "\n### SELECCIONA LA TABLA A UTILIZAR O CREA UN CORREDOR Y UN EQUIPO NUEVO ###");
+            System.out.println("\t1-Tabla Equipos");
+            System.out.println("\t2-Tabla Corredores");
+            System.out.println("\t3-Crear un equipo y un corredor perteneciente a ese equipo");
+            System.out.println("\t4-Eliminar todos los datos de la Base de Datos");
+            System.out.println("\t5-SALIR PROGRAMA");
+            System.out.print("Opción: ");
+            opcion = sc.nextLine();
+
+            switch (opcion) {
+                case "1":
+                    menuEquipo();
+                    break;
+                case "2":
+                    menuCorredor();
+                    break;
+                case "3":
+                    System.out.print("Introduce el nombre del nuevo Equipo:");
+                    String tName = sc.nextLine();
+                    System.out.print("Introduce el nombre del nuevo corredor que pertenecerá al equipo que acabas de crear:");
+                    String rName = sc.nextLine();
+                    System.out.print("Introduce la posición final en la que quedó el corredor:");
+                    int finalPos;
+                    try{
+                        finalPos = sc.nextInt();
+                        sc.nextLine();
+                        runnerHandleDB.insertRunnerWithNewTeam(tName,rName,finalPos);
+                    } catch (InputMismatchException e){
+                        sc.nextLine();
+                        System.out.println("Error introduciendo la posición del corredor, cancelando inserción");
+                    } catch (SQLException e) {
+                        System.out.println("Error insertando el equipo o el corredor");
+                    }
+                    break;
+                case "4":
+                    System.out.println("Eliminando datos de la base de datos");
+                    try {
+                        generalHandleDB.deleteAllFromDb();
+                        System.out.println("Eliminación completada");
+                    } catch (SQLException e) {
+                        System.out.println("Error eliminando todos los datos de la base de datos");
+                    }
+                    break;
+                case "5":
+                    break;
+                default:
+                    System.out.println("Opcion incorrecta, vuelve a intentarlo.");
+                    break;
+            }
+        } while(!opcion.equals("5"));
+    }
     private static int iniciarSesion() throws SQLException {
         String username;
         String password;
@@ -65,7 +121,7 @@ public class MenuUtil {
                     registrado = true;
                     System.out.println("Bienvenido " + username);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    System.out.println("Error en la inserción de ");;
                 }
             } else {
                 System.out.println("El usuario introducido ya existe, prueba con otro.");
@@ -121,7 +177,8 @@ public class MenuUtil {
             System.out.println("\t3-Eliminar "+ tabla);
             System.out.println("\t4-Mostrar todo el contenido de la tabla " + tabla);
             System.out.println("\t5-Mostrar todos los corredores de un " + tabla);
-            System.out.println("\t6-VOLVER AL MENU ANTERIOR");
+            System.out.println("\t6-Mostrar todos los EQUIPOS con 5 o más corredores");
+            System.out.println("\t7-VOLVER AL MENU ANTERIOR");
             System.out.print("Opción: ");
             opcion = sc.nextLine();
 
@@ -188,12 +245,17 @@ public class MenuUtil {
                     }
                     break;
                 case "6":
+                    System.out.println("############################################");
+                    teamHandleDB.getTeamsWithMoreThanFiveRunners();
+                    System.out.println("############################################");
+                    break;
+                case "7":
                     break;
                 default:
                     System.out.println("Opción incorrecta, vuelve a intentarlo.");
                     break;
             }
-        } while (!opcion.equals("6"));
+        } while (!opcion.equals("7"));
     }
     public static void menuCorredor(){
         String tabla = "CORREDOR";
@@ -276,7 +338,7 @@ public class MenuUtil {
                     break;
                 case "4":
                     System.out.println("#############################");
-                    if (runnerHandleDB.getRunners().stream().count() > 0){
+                    if (runnerHandleDB.getRunners().size() > 0){
                         runnerHandleDB.getRunners().forEach(System.out::println);
                     } else {
                         System.out.println("Todavía no hay corredores");
@@ -290,34 +352,5 @@ public class MenuUtil {
                     break;
             }
         } while (!opcion.equals("5"));
-    }
-    public static void menuSeleccionTabla(){
-        String opcion;
-        do {
-            System.out.println(Colores.ANSI_CYAN + "\n### SELECCIONA LA TABLA A UTILIZAR O CREA UN CORREDOR Y UN EQUIPO NUEVO ###");
-            System.out.println("\t1-Tabla Equipos");
-            System.out.println("\t2-Tabla Corredores");
-            System.out.println("\t3-Crear un equipo y un corredor");
-            System.out.println("\t4-SALIR PROGRAMA");
-            System.out.print("Opción: ");
-            opcion = sc.nextLine();
-
-            switch (opcion) {
-                case "1":
-                    menuEquipo();
-                    break;
-                case "2":
-                    menuCorredor();
-                    break;
-                case "3":
-
-                    break;
-                case "4":
-                    break;
-                default:
-                    System.out.println("Opcion incorrecta, vuelve a intentarlo.");
-                    break;
-            }
-        } while(!opcion.equals("4"));
     }
 }

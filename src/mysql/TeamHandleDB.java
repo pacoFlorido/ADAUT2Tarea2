@@ -11,6 +11,27 @@ import java.util.List;
 public class TeamHandleDB {
     private static final Connection con = DatabaseConnection.getConn();
 
+    public List<Team> getTeamsWithMoreThanFiveRunners(){
+        List<Team> teams = new ArrayList<>();
+        String sql = "SELECT t.id, t.t_name, count(r.idTeam) FROM runner r JOIN team t ON (t.id = r.idTeam) GROUP BY r.idTeam HAVING count(r.idTeam) >= 5";
+
+        try (Statement st = con.createStatement();
+             ResultSet results = st.executeQuery(sql)){
+
+            while (results.next()){
+                Team team = new Team();
+                team.setId(results.getInt(1));
+                team.settName(results.getString(2));
+                int cantidad = results.getInt(3);
+                System.out.println("Cantidad: " + cantidad + ", " + team);
+                teams.add(team);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return teams;
+    }
+
     public int insert(Team team) throws SQLException {
         String sql = "INSERT INTO team(t_name) VALUES (?)";
 

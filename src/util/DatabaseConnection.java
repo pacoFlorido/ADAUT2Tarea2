@@ -20,7 +20,7 @@ public class DatabaseConnection {
                     properties.getProperty("db.username"),
                     properties.getProperty("db.password"));
         } catch (SQLException | IOException e) {
-            e.getStackTrace();
+            System.out.println("Error en la conexión con la base de datos");
         }
     }
     //Para que no se puedan crear instancias de la clase

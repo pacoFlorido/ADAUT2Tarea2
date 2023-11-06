@@ -9,7 +9,8 @@ import java.util.List;
 
 public class LoginHandleDB {
     private static final Connection con = DatabaseConnection.getConn();
-    public int insert(Login login) throws SQLException {
+
+    public int insert(Login login) throws SQLException, NullPointerException {
         String sql = "INSERT INTO login(username,pass) VALUES (?,?)";
 
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
