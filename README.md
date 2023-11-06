@@ -1,4 +1,4 @@
-# Foobar
+# Aplicación con conexión a Base de Datos
 
 Foobar is a Python library for dealing with word pluralization.
 
