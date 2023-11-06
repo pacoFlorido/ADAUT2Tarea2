@@ -93,6 +93,7 @@ public class MenuUtil {
             username = sc.nextLine();
             System.out.print("\tContraseña: ");
             password = sc.nextLine();
+            System.out.println();
             if (loginHandleDB.exists(username,password)){
                 System.out.println("Bienvenido " + username);
                 iniciado = true;
@@ -114,6 +115,7 @@ public class MenuUtil {
             username = sc.nextLine();
             System.out.print("\tContraseña: ");
             password = sc.nextLine();
+            System.out.println();
             if (!loginHandleDB.exists(username)){
                 Login newLog = new Login(username, password);
                 try {
