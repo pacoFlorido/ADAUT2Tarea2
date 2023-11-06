@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ADA-Practica-Tema2:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/ADA_Practica_Tema2_jar2</output-path>
+    <root id="archive" name="ADA-Practica-Tema2.jar">
+      <element id="module-output" name="ADA-Practica-Tema2" />
+      <element id="extracted-dir" path="$USER_HOME$/Escritorio/Paquetes/mysql-connector-java-8.0.30.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

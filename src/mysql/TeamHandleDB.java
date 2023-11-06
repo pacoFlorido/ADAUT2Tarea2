@@ -23,7 +23,7 @@ public class TeamHandleDB {
                 team.setId(results.getInt(1));
                 team.settName(results.getString(2));
                 int cantidad = results.getInt(3);
-                System.out.println("Cantidad: " + cantidad + ", " + team);
+                System.out.println("Corredores: " + cantidad + ", " + team);
                 teams.add(team);
             }
         } catch (SQLException e) {
@@ -133,7 +133,7 @@ public class TeamHandleDB {
         return null;
     }
     public void getRunnersEquipo(String tname){
-        String sql = "SELECT r.dorsal, r.r_name, r.final_position FROM runner r JOIN team t ON (r.idTeam=t.id) WHERE t.t_name = ?";
+        String sql = "SELECT r.dorsal, r.r_name, r.final_position, r.idTeam FROM runner r JOIN team t ON (r.idTeam=t.id) WHERE t.t_name = ?";
 
         try(PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1,tname);
@@ -144,6 +144,7 @@ public class TeamHandleDB {
                         r.setDorsal(rs.getInt(1));
                         r.setrName(rs.getString(2));
                         r.setFinalPosition(rs.getInt(3));
+                        r.setIdTeam(rs.getInt(4));
                 System.out.println(r);
             }
         } catch (SQLException e) {

@@ -1,9 +1,13 @@
 package app;
 
+import util.DatabaseConnection;
 import util.MenuUtil;
 
 public class Main {
     public static void main(String[] args) {
-        MenuUtil.showMenu();
+
+        if (DatabaseConnection.getConn()!=null){
+            MenuUtil.showMenu();
+        }
     }
 }

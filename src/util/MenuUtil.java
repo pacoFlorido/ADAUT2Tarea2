@@ -89,7 +89,7 @@ public class MenuUtil {
         int intentos = 4;
 
         do {
-            System.out.print(Colores.ANSI_YELLOW + "\tUsuario: ");
+            System.out.print(Colores.ANSI_YELLOW + "\n\tUsuario: ");
             username = sc.nextLine();
             System.out.print("\tContraseña: ");
             password = sc.nextLine();
@@ -110,7 +110,7 @@ public class MenuUtil {
         boolean registrado = false;
 
         do {
-            System.out.print(Colores.ANSI_YELLOW + "\tUsuario: ");
+            System.out.print(Colores.ANSI_YELLOW + "\n\tUsuario: ");
             username = sc.nextLine();
             System.out.print("\tContraseña: ");
             password = sc.nextLine();
@@ -225,7 +225,7 @@ public class MenuUtil {
                     }
                     break;
                 case "4":
-                    System.out.println("#############################");
+                    System.out.println(Colores.ANSI_PURPLE + "#############################");
                     teamHandleDB.getTeams().forEach(System.out::println);
                     System.out.println("#############################");
                     break;
@@ -234,7 +234,7 @@ public class MenuUtil {
                     String tname = sc.nextLine();
                     try {
                         if (teamHandleDB.exists(tname)){
-                            System.out.println("#################################################");
+                            System.out.println(Colores.ANSI_PURPLE + "#################################################");
                             teamHandleDB.getRunnersEquipo(tname);
                             System.out.println("#################################################");
                         } else {
@@ -245,7 +245,7 @@ public class MenuUtil {
                     }
                     break;
                 case "6":
-                    System.out.println("############################################");
+                    System.out.println(Colores.ANSI_PURPLE + "############################################");
                     teamHandleDB.getTeamsWithMoreThanFiveRunners();
                     System.out.println("############################################");
                     break;
@@ -337,7 +337,7 @@ public class MenuUtil {
                     }
                     break;
                 case "4":
-                    System.out.println("#############################");
+                    System.out.println(Colores.ANSI_PURPLE + "#############################");
                     if (runnerHandleDB.getRunners().size() > 0){
                         runnerHandleDB.getRunners().forEach(System.out::println);
                     } else {
