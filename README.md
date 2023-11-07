@@ -22,6 +22,10 @@ que puedes encontrar en esta misma carpeta.
 Además, si quieres tener algunos corredores y equipos de ejemplo puedes ejecutar
 el archivo `DMLmaraton.sql` que también se encuentra en esta carpeta.
 
+##IMPORTANTE!!!
+No ejecutar el archivo DML una vez ya se haya introducido algún dato mediante la 
+aplicación normal.
+
 ##Funcionamiento
 El proyecto consiste en varios menus para introducir, modificar y eliminar
 datos en la base de datos "maratón". 
